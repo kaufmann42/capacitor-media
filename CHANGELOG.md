@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/stewwan/capacitor-media/compare/v0.2.0...v0.2.1) (2020-02-07)
+
+
+### Bug Fixes
+
+* **ios/saveMedia:** correctly saves data strings now ([863b537](https://github.com/stewwan/capacitor-media/commit/863b5371ba4648bbb66cb1b2aed2227a068aef77))
+
 ## [0.2.0](https://github.com/stewwan/capacitor-media/compare/v0.1.0...v0.2.0) (2020-02-07)
 
 ### [0.0.6](https://github.com/stewwan/capacitor-media/compare/v0.0.5...v0.0.6) (2019-10-17)
