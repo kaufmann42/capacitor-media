@@ -88,11 +88,18 @@ public class MediaPlugin: CAPPlugin {
         checkAuthorization(allowed: {
             // Add it to the photo library.
             PHPhotoLibrary.shared().performChanges({
-                
-                let url = URL(string: data)
-                let data = try? Data(contentsOf: url!)
+                if (data.hasPrefix("data:")) {
+                    let dataDecoded:NSData = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions(rawValue: 0))!
+                } else {
+                    let url = URL(string: data)
+                    let data = try? Data(contentsOf: url!)
+                }
                 if (data != nil) {
-                    let image = UIImage(data: data!)
+                    if (data.hasPrefix("data:")) {
+                        let image:UIImage = UIImage(data: dataDecoded)!
+                    } else {
+                        let image = UIImage(data: data!)
+                    }
                     let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image!)
                     
                     if let collection = targetCollection {
