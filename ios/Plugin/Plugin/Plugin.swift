@@ -89,17 +89,9 @@ public class MediaPlugin: CAPPlugin {
             // Add it to the photo library.
             PHPhotoLibrary.shared().performChanges({
                 if (data.hasPrefix("data:")) {
-                    let dataDecoded:NSData = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions(rawValue: 0))!
-                } else {
-                    let url = URL(string: data)
-                    let data = try? Data(contentsOf: url!)
-                }
-                if (data != nil) {
-                    if (data.hasPrefix("data:")) {
-                        let image:UIImage = UIImage(data: dataDecoded)!
-                    } else {
-                        let image = UIImage(data: data!)
-                    }
+                    let temp = data.components(separatedBy: ",")
+                    let dataDecoded : Data = Data(base64Encoded: temp[1], options: .ignoreUnknownCharacters)!
+                    let image = UIImage(data: dataDecoded)
                     let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image!)
                     
                     if let collection = targetCollection {
@@ -107,9 +99,16 @@ public class MediaPlugin: CAPPlugin {
                         addAssetRequest?.addAssets([creationRequest.placeholderForCreatedAsset! as Any] as NSArray)
                     }
                 } else {
-                    call.error("Could not convert fileURL into Data");
+                    let url = URL(string: data)
+                    let data = try? Data(contentsOf: url!)
+                    let image = UIImage(data: data!)
+                    let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image!)
+                    
+                    if let collection = targetCollection {
+                        let addAssetRequest = PHAssetCollectionChangeRequest(for: collection)
+                        addAssetRequest?.addAssets([creationRequest.placeholderForCreatedAsset! as Any] as NSArray)
+                    }
                 }
-                
             }, completionHandler: {success, error in
                 if !success {
                     call.error("Unable to save image to album", error)
