@@ -18,7 +18,7 @@
   "author": "Stewan Silva",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "latest"
+    "@capacitor/core": "^1.5.1"
   },
   "devDependencies": {
     "typescript": "^3.2.4",
