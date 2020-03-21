@@ -1,6 +1,6 @@
 # capacitor-media [![npm version](https://badge.fury.io/js/capacitor-media.svg)](https://badge.fury.io/js/capacitor-media)
 
-Capacitor plugin to activate media features such as saving videos and gifs into user's photo gallery
+Capacitor plugin to activate media features such as saving videos and gifs into user's photo gallery. Fork now supports base64 data strings for iOS.
 
 ## API
 
@@ -17,10 +17,12 @@ Capacitor plugin to activate media features such as saving videos and gifs into 
 import { Media } from 'capacitor-media';
 const media = new Media();
 
+const base64String = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ4AAAOACAYAAAAKPxXNAAAAAXNSR0IArs4c6QAAIABJREFUeJzt3X2QVfV9';
+
 //
 // Save video to a specfic album
 media
-  .saveVideo({ path: '/path/to/the/file', album: 'My Album' })
+  .savePhoto({path: base64String, album: 'My Album' })
   .then(console.log)
   .catch(console.log);
 
